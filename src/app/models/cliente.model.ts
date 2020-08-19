@@ -3,9 +3,9 @@ export class cliente{
     apellido: string;
     mail: string;
 
-    constructor(nomb:string; ape:string; mail:string){
-        this.nombre = nomb;
-        this.apellido = ape;
+    constructor(nombre:string, apellido:string, mail:string){
+        this.nombre = nombre;
+        this.apellido = apellido;
         this.mail = mail;
     }
 }

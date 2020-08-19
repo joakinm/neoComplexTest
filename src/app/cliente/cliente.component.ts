@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { cliente } from '../models/cliente.model';
 
 @Component({
   selector: 'app-cliente',
@@ -6,12 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cliente.component.css']
 })
 export class ClienteComponent implements OnInit {
-
+  cli :cliente[] = [];
+  @ViewChild('f',{static: false}) singupForm:NgForm;
   constructor() { }
 
   ngOnInit(): void {
   }
   onSubmit(){
-    
+    this.cli.push(this.singupForm.value);
+    console.log(this.cli);
   }
 }
