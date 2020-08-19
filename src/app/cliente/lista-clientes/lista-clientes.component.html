@@ -1,0 +1,8 @@
+<h1> {{cli.length ? 'Listado de Clientes' : ''}} </h1>
+<div *ngFor="let c of cli, let i = index">
+    <ul>
+        <h3>Nombre: {{c.nombre}}</h3>
+        <li>Apellido: {{c.apellido}}</li>
+        <li>Mail:{{c.mail}}</li>
+    </ul>
+</div>
