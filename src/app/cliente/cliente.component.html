@@ -1,1 +1,10 @@
-<p>cliente works!</p>
+<form (ngSubmit)="onSubmit()">
+    <label for="nombre">Nombre</label>
+    <input type="text" name="nombre" id="nombre" ngModel #nombre>
+    <label for="apellido">Apellido</label>
+    <input type="text" name="apellido" id="apellido" ngModel #apellido>
+    <label for="mail">Mail</label>
+    <input type="mail" name="mail" id="mail" #mail>
+
+    <button type="submit">Agregar</button>
+</form>
