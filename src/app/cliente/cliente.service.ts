@@ -17,6 +17,10 @@ export class ClienteService {
     this.clientes.push(cli);
     this.clienteCambio.next(this.clientes.slice());
   }
+  agregarClientes(cli : cliente[]){
+    this.clientes = cli;
+    this.clienteCambio.next(this.clientes.slice());
+  }
   
   mostrarClientes(){
     return this.clientes.slice();
@@ -27,5 +31,12 @@ export class ClienteService {
     } else {
       alert('No hay clientes para guardar.');
     }
+  }
+  traerClientes(){
+    this.data.traerListaClientes().subscribe((c:cliente[]) =>{
+      this.agregarClientes(c);
+      console.log(this.clientes.slice());
+      this.clienteCambio.next(this.clientes.slice());
+    });
   }
 }

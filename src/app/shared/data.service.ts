@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { cliente } from '../models/cliente.model';
-import { ClienteService } from '../cliente/cliente.service';
 import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -21,4 +20,8 @@ export class DataService {
       }
       );
   }
+  traerListaClientes(){
+    return this.http.get<cliente[]>('https://clientesbd-4faf6.firebaseio.com/clientes.json');
+  }
+
 }

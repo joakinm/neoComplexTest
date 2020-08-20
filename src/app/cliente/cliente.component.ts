@@ -17,4 +17,7 @@ export class ClienteComponent implements OnInit {
   onSubmit(){
     this.servCliente.agregarCliente(this.form.value);
   }
+  traerListaClientes(){
+    this.servCliente.traerClientes();
+  }
 }
