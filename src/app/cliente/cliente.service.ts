@@ -35,7 +35,6 @@ export class ClienteService {
   traerClientes(){
     this.data.traerListaClientes().subscribe((c:cliente[]) =>{
       this.agregarClientes(c);
-      console.log(this.clientes.slice());
       this.clienteCambio.next(this.clientes.slice());
     });
   }
