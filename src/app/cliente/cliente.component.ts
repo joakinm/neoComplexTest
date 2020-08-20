@@ -16,6 +16,5 @@ export class ClienteComponent implements OnInit {
   }
   onSubmit(){
     this.servCliente.agregarCliente(this.form.value);
-    alert("cliente agregado");
   }
 }

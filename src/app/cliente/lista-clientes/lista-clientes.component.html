@@ -1,8 +1,12 @@
-<h1> {{cli.length ? 'Listado de Clientes' : ''}} </h1>
-<div *ngFor="let c of cli, let i = index">
-    <ul>
-        <h3>Nombre: {{c.nombre}}</h3>
-        <li>Apellido: {{c.apellido}}</li>
-        <li>Mail:{{c.mail}}</li>
-    </ul>
+<div class="container">
+    <h1 > {{cli.length ? 'Listado de Clientes' : ''}} </h1>
+    <div class="row"></div>
+    <div *ngFor="let c of cli, let i = index">
+        <ul>
+            <li>Nombre: {{c.nombre}}</li>
+            <li>Apellido: {{c.apellido}}</li>
+            <li>Mail: {{c.mail}}</li>
+        </ul>
+    </div>
+    <button class="btn btn-primary" (click)="guardarClientes()" [hidden]="!cli.length">Guardar clientes</button>
 </div>

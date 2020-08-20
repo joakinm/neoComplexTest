@@ -12,10 +12,12 @@ export class ListaClientesComponent implements OnInit {
   constructor(private cliServ : ClienteService) { }
 
   ngOnInit(): void {
-    this.cli = this.cliServ.mostrarCliente();
+    this.cli = this.cliServ.mostrarClientes();
     this.cliServ.clienteCambio.subscribe(
       (c:cliente[]) => {this.cli = c}
     )
   }
-
+  guardarClientes(){
+    this.cliServ.guardarClientes();
+  }
 }
