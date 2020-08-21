@@ -38,4 +38,8 @@ export class ClienteService {
       this.clienteCambio.next(this.clientes.slice());
     });
   }
+  eliminarCliente(id:number){
+      this.clientes.splice(id,1);
+      this.clienteCambio.next(this.clientes.slice());
+  }
 }

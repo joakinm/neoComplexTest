@@ -7,11 +7,12 @@ import { Subject } from 'rxjs';
 })
 export class DataService {
   error = new Subject<string>();
+  url: string = 'https://clientesbd-4faf6.firebaseio.com/clientes.json';
 
   constructor(private http : HttpClient) { }
 
   guardarCliente(clientes:cliente[]){
-    this.http.put('https://clientesbd-4faf6.firebaseio.com/clientes.json',
+    this.http.put(this.url,
       clientes
       ).subscribe(Data=>{
         alert('datos guardados correctamente');
@@ -21,7 +22,6 @@ export class DataService {
       );
   }
   traerListaClientes(){
-    return this.http.get<cliente[]>('https://clientesbd-4faf6.firebaseio.com/clientes.json');
+    return this.http.get<cliente[]>(this.url);
   }
-
 }

@@ -2,11 +2,14 @@
     <h1 > {{cli.length ? 'Listado de Clientes' : ''}} </h1>
     <div class="row"></div>
     <div *ngFor="let c of cli, let i = index">
-        <ul>
-            <li>Nombre: {{c.nombre}}</li>
-            <li>Apellido: {{c.apellido}}</li>
-            <li>Mail: {{c.mail}}</li>
-        </ul>
+        <div [ngClass]="this.id-1 == i ? 'seleccionado' : '' "
+         class="lista list-group-item" 
+         (click)="componenteClickeado(i)">
+            <p>Nombre: {{c.nombre}}</p>
+            <p>Apellido: {{c.apellido}}</p>
+            <p>Mail: {{c.mail}}</p>
+        </div>
     </div>
     <button class="btn btn-primary" (click)="guardarClientes()" [hidden]="!cli.length">Guardar clientes</button>
+    <button class="btn btn-danger" (click)="eliminarCliente()" [hidden]="!this.id">Eliminar Cliente</button>
 </div>
