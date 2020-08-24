@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { cliente } from '../models/cliente.model';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { DataService } from '../shared/data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteService {
-
+  datosCliente : Observable<cliente[]>;
   clientes :cliente[] = [];
   clienteCambio = new Subject<cliente[]>();
+  clienteElegido= new Subject<{cl:cliente,index:number}>();
 
   constructor(private data : DataService) { }
-
+  
   agregarCliente(cli : cliente){
     this.clientes.push(cli);
     this.clienteCambio.next(this.clientes.slice());
@@ -21,9 +22,10 @@ export class ClienteService {
     this.clientes = cli;
     this.clienteCambio.next(this.clientes.slice());
   }
-  
-  mostrarClientes(){
-    return this.clientes.slice();
+  buscarClienteId(id:number){
+    let clienteEncontrado = this.clientes[id];
+    this.clienteElegido.next({cl:clienteEncontrado,index:id});
+
   }
   guardarClientes(){
     if(this.clientes){
@@ -32,8 +34,12 @@ export class ClienteService {
       alert('No hay clientes para guardar.');
     }
   }
+  mostrarClientes(){
+    return this.clientes.slice();
+  }
   traerClientes(){
-    this.data.traerListaClientes().subscribe((c:cliente[]) =>{
+    this.datosCliente = this.data.traerListaClientes();
+    this.datosCliente.subscribe((c:cliente[]) =>{
       this.agregarClientes(c);
       this.clienteCambio.next(this.clientes.slice());
     });
@@ -41,5 +47,10 @@ export class ClienteService {
   eliminarCliente(id:number){
       this.clientes.splice(id,1);
       this.clienteCambio.next(this.clientes.slice());
+    }
+    modificarCliente(c:cliente,id:number){
+      this.clientes[id] = c;
+      this.clienteCambio.next(this.clientes.slice());
+    }
   }
-}
+  

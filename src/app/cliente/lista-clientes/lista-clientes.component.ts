@@ -27,5 +27,6 @@ export class ListaClientesComponent implements OnInit {
 
   componenteClickeado(i:number){
     this.id = i+1;// esto solo para que funcione correctamente el hidden del boton
+    this.cliServ.buscarClienteId(this.id-1);
   }
 }
