@@ -13,7 +13,7 @@ export class ClienteService {
   clienteElegido= new Subject<{cl:cliente,index:number}>();
 
   constructor(private data : DataService) { }
-  
+ //----Agregar
   agregarCliente(cli : cliente){
     this.clientes.push(cli);
     this.clienteCambio.next(this.clientes.slice());
@@ -22,27 +22,31 @@ export class ClienteService {
     this.clientes = cli;
     this.clienteCambio.next(this.clientes.slice());
   }
+//------clickeando cliente para modificar o eliminar
   buscarClienteId(id:number){
     let clienteEncontrado = this.clientes[id];
     this.clienteElegido.next({cl:clienteEncontrado,index:id});
 
   }
-  guardarClientes(){
-    if(this.clientes){
-      this.data.guardarCliente(this.clientes);
-    } else {
-      alert('No hay clientes para guardar.');
+  //------CRUD
+  //-http requests
+    guardarClientes(){
+      if(this.clientes){
+        this.data.guardarCliente(this.clientes);
+      } else {
+        alert('No hay clientes para guardar.');
+      }
     }
-  }
+    traerClientes(){
+      this.datosCliente = this.data.traerListaClientes();
+      this.datosCliente.subscribe((c:cliente[]) =>{
+        this.agregarClientes(c);
+        this.clienteCambio.next(this.clientes.slice());
+      });
+    }
+//-get delete y update
   mostrarClientes(){
     return this.clientes.slice();
-  }
-  traerClientes(){
-    this.datosCliente = this.data.traerListaClientes();
-    this.datosCliente.subscribe((c:cliente[]) =>{
-      this.agregarClientes(c);
-      this.clienteCambio.next(this.clientes.slice());
-    });
   }
   eliminarCliente(id:number){
       this.clientes.splice(id,1);
