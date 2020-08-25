@@ -28,6 +28,7 @@ export class ClienteComponent implements OnInit {
   onSubmit(){
     if(this.modoEdit){
       this.servCliente.modificarCliente(this.form.value,this.indexClElegido);
+      this.modoEdit=false;
     }
     else{
       this.servCliente.agregarCliente(this.form.value);
