@@ -1,6 +1,7 @@
 .lista{
     cursor: pointer; 
 }
+
 .seleccionado{
     background-color: cyan;
 }

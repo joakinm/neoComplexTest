@@ -1,13 +1,14 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {  FormGroup, FormControl, Validators } from '@angular/forms';
 import { ClienteService } from './cliente.service';
-import { cliente } from '../models/cliente.model';
+import { Cliente } from '../models/cliente.model';
 
 @Component({
   selector: 'app-cliente',
   templateUrl: './cliente.component.html',
   styleUrls: ['./cliente.component.css']
 })
+
 export class ClienteComponent implements OnInit {
   form:FormGroup;
   nombre:string;
@@ -17,11 +18,12 @@ export class ClienteComponent implements OnInit {
   indexClElegido:number;
 
   constructor(private servCliente : ClienteService) { }
+  
   ngOnInit(): void {
-    this.servCliente.clienteElegido.subscribe(cl =>{
-      this.indexClElegido = cl.index
+    this.servCliente.clienteElegido.subscribe(cliente =>{
+      this.indexClElegido = cliente.index
       this.modoEdit = true;
-      this.initForm(cl.cl);
+      this.initForm(cliente.cliente);
     });
     this.initForm();
   }
@@ -38,21 +40,21 @@ export class ClienteComponent implements OnInit {
   traerListaClientes(){
     this.servCliente.traerClientes();
   }
-  private initForm(cl?:cliente){
+  private initForm(cliente?:Cliente){
 
-    let nombre ="";
+    let nombre = "";
     let apellido = "";
     let mail = "";
 
     if(this.modoEdit){
-      nombre = cl.nombre;
-      apellido = cl.apellido;
-      mail = cl.mail;
+      nombre = cliente.nombre;
+      apellido = cliente.apellido;
+      mail = cliente.mail;
     }
     this.form = new FormGroup({
       'nombre' : new FormControl(nombre,Validators.required),
       'apellido' : new FormControl(apellido,Validators.required),
-      'mail': new FormControl(mail,Validators.required)
+      'mail': new FormControl(mail,[Validators.required,Validators.email])
     });
   }
 }
