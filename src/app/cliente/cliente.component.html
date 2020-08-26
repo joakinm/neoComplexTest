@@ -4,18 +4,18 @@
     <form [formGroup]="form">
         <div class="form-group">
             <label for="nombre">Nombre</label>
-            <input class="form-control" type="text" name="nombre" id="nombre" formControlName="nombre" #nombre>
-            <span class="blockquote-footer" *ngIf="!nombre.valid && nombre.touched">Favor de ingresar un nombre</span>
+            <input class="form-control" type="text" name="nombre" id="nombre" formControlName="nombre" >
+            <span class="blockquote-footer" *ngIf="!form.get('nombre').valid && form.get('nombre').touched">Favor de ingresar un nombre</span>
         </div>
         <div class="form-group">
             <label for="apellido">Apellido</label>
-            <input class="form-control" type="text" name="apellido" id="apellido" formControlName="apellido" #apellido>
-            <span class="blockquote-footer" *ngIf="!apellido.valid && apellido.touched">Favor de ingresar un apellido</span>
+            <input class="form-control" type="text" name="apellido" id="apellido" formControlName="apellido" >
+            <span class="blockquote-footer" *ngIf="!form.get('apellido').valid && form.get('apellido').touched">Favor de ingresar un apellido</span>
         </div>
         <div class="form-group">
             <label for="mail">Mail</label>
-            <input class="form-control" type="email" name="mail" id="mail" formControlName="mail" #mail>
-            <span class="blockquote-footer" *ngIf="!mail.valid && mail.touched">Favor de ingresar un email valido</span>
+            <input class="form-control" type="email" name="mail" id="mail" formControlName="mail" >
+            <span class="blockquote-footer" *ngIf="!form.get('mail').valid && form.get('mail').touched">Favor de ingresar un email valido</span>
         </div>
         <div class="form-group">
             <button class="btn btn-primary" type="submit" [disabled]="!form.valid" (click)="onSubmit()">{{!modoEdit ? 'Agregar' : 'Modificar'}}</button>
