@@ -23,7 +23,7 @@ export class DataService {
       }
       );
   }
-  traerListaClientes(){
-    return this.http.get<Cliente[]>(this.url);
+  async traerListaClientes(){
+    return await this.http.get<Cliente[]>(this.url).toPromise();
   }
 }

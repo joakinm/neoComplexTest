@@ -7,53 +7,55 @@ import { DataService } from '../shared/data.service';
   providedIn: 'root'
 })
 export class ClienteService {
-  datosCliente : Observable<Cliente[]>;
-  clientes :Cliente[] = [];
+  datosCliente: Observable<Cliente[]>;
+  clientes: Cliente[] = [];
   clienteCambio = new Subject<Cliente[]>();
-  clienteElegido= new Subject<{cliente:Cliente,index:number}>();
+  clienteElegido = new Subject<{cliente:Cliente, index:number}>();
 
-  constructor(private data : DataService) { }
-  //----Agregar
-  agregarCliente(cli : Cliente){
+  constructor(private data: DataService) { }
+  
+  public agregarCliente(cli: Cliente): void{
     this.clientes.push(cli);
     this.clienteCambio.next(this.clientes.slice());
   }
-  agregarClientes(cli : Cliente[]){
+
+  agregarClientes(cli: Cliente[]){
     this.clientes = cli;
     this.clienteCambio.next(this.clientes.slice());
   }
-  //------clickeando cliente para modificar o eliminar
-  buscarClienteId(id:number){
+
+  buscarClienteId(id: number) {
     let clienteEncontrado = this.clientes[id];
-    this.clienteElegido.next({cliente:clienteEncontrado,index:id});
+    this.clienteElegido.next({cliente: clienteEncontrado, index: id});
   }
-  //------CRUD
-  //-http requests
-  guardarClientes(){
-    if(this.clientes){
+
+  guardarClientes() {
+    if(this.clientes) {
       this.data.guardarCliente(this.clientes);
     } else {
       alert('No hay clientes para guardar.');
     }
   }
-  traerClientes(){
-    this.datosCliente = this.data.traerListaClientes();
-    this.datosCliente.subscribe((c:Cliente[]) =>{
-      this.agregarClientes(c);
-      this.clienteCambio.next(this.clientes.slice());
-    });
+
+  async traerClientes() {
+    let listaCliente = await this.data.traerListaClientes();
+    this.agregarClientes(listaCliente);
+    this.clienteCambio.next(this.clientes.slice());
   }
-  //-get delete y update
-  mostrarClientes(){
+
+  mostrarClientes() {
     return this.clientes.slice();
   }
-  eliminarCliente(id:number){
-      this.clientes.splice(id,1);
+
+  eliminarCliente(id: number) {
+      this.clientes.splice(id, 1);
       this.clienteCambio.next(this.clientes.slice());
   }
-  modificarCliente(c:Cliente,id:number){
+  
+  modificarCliente(c: Cliente,id: number) {
     this.clientes[id] = c;
     this.clienteCambio.next(this.clientes.slice());
   }
+
 }
   
